@@ -5,12 +5,6 @@ Using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) is pretty great. Ha
 
 ### Getting started
 
-There is a helpful script in the `./bin` directory of this project called `get-wp`. This script can be run using the following command:
-
-```sh
-$ ./bin/get-wp
-```
-
 Once this command runs, it will create an `./htdocs` directory in the current working directory if this directory doesn't exist. This `./htdocs` directory is used by VVV to serve WordPress. If you are tracking the whole project, you should create a git repo within the `./htdocs` directory. If you are only tracking the theme, you can clone your custom theme, within the `./htdocs/wp-content/themes` directory.
 
 ##### If you are tracking the whole WordPress installation
@@ -33,7 +27,7 @@ Documentation on VVV can be [found here](https://github.com/Varying-Vagrant-Vagr
 
 The following files each accomplish something specific to the VVV site.
 ```
-./
+./single-site
 ├── vvv-hosts
 ├── vvv-init.sh
 └── vvv-nginx.conf
