@@ -1,0 +1,22 @@
+#!/bin/bash
+
+TMP_DIR=`mktemp -d /tmp/temp.XXXX`
+WP_DOWNLOAD='https://wordpress.org/latest.zip'
+
+echo "Downloading the latest WordPress from ${WP_DOWNLOAD}"
+curl $WP_DOWNLOAD > $TMP_DIR/wp.zip
+echo 'Unzipping WordPress...'
+unzip -qq $TMP_DIR/wp.zip -d $TMP_DIR
+echo "Moving WordPress to htdocs in `pwd`"
+if [ -d ./htdocs ]; then
+  echo "You already have an htdocs directory in `pwd`"
+  echo "Remove this directory from `pwd` and run this script again."
+  rm -rf $TMP_DIR
+  exit 1
+else
+  mv $TMP_DIR/wordpress ./htdocs
+  echo 'Here are your WordPress files inside of ./htdocs:'
+  ls -Fal htdocs
+  rm -rf $TMP_DIR && echo 'Happy WordPressing!'
+  exit 0
+fi
