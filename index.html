@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>VVV Boilerplates by rogeruiz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>VVV Boilerplates</h1>
+        <p>VVV is pretty great. Auto-configuring your sites from nothing is not.</p>
+
+        <p class="view"><a href="https://github.com/rogeruiz/vvv-boilerplate">View the Project on GitHub <small>rogeruiz/vvv-boilerplate</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/rogeruiz/vvv-boilerplate/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/rogeruiz/vvv-boilerplate/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/rogeruiz/vvv-boilerplate">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="vvv-boilerplate" class="anchor" href="#vvv-boilerplate" aria-hidden="true"><span class="octicon octicon-link"></span></a>VVV Boilerplate</h1>
+
+<p>Using <a href="https://github.com/Varying-Vagrant-Vagrants/VVV">VVV</a> is pretty great. Having a starting point for any new projects you bring under the VVV tool-set is a great way to enhance your productivity.</p>
+
+<h3>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h3>
+
+<p>Once this command runs, it will create an <code>./htdocs</code> directory in the current working directory if this directory doesn't exist. This <code>./htdocs</code> directory is used by VVV to serve WordPress. If you are tracking the whole project, you should create a Git repo within the <code>./htdocs</code> directory. If you are only tracking the theme, you can clone your custom theme, within the <code>./htdocs/wp-content/themes</code> directory.</p>
+
+<h5>
+<a id="if-you-are-tracking-the-whole-wordpress-installation" class="anchor" href="#if-you-are-tracking-the-whole-wordpress-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>If you are tracking the whole WordPress installation</h5>
+
+<div class="highlight highlight-sh"><pre>$ <span class="pl-c1">cd</span> ./htdocs
+$ git init</pre></div>
+
+<h5>
+<a id="if-you-are-only-tracking-the-wordpress-theme" class="anchor" href="#if-you-are-only-tracking-the-wordpress-theme" aria-hidden="true"><span class="octicon octicon-link"></span></a>If you are only tracking the WordPress theme</h5>
+
+<div class="highlight highlight-sh"><pre>$ <span class="pl-c1">cd</span> ./htdocs/wp-content/themes/
+$ git clone git@github.com/user/theme-repo ./theme-wp</pre></div>
+
+<h3>
+<a id="using-vvv-for-local-development" class="anchor" href="#using-vvv-for-local-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using VVV for local development</h3>
+
+<p>Documentation on VVV can be <a href="https://github.com/Varying-Vagrant-Vagrants/VVV#varying-vagrant-vagrants">found here</a>. More information about the files described below can be <a href="https://github.com/varying-vagrant-vagrants/vvv/wiki/Auto-site-Setup">found here</a>.</p>
+
+<h5>
+<a id="using-the-different-boilerplates" class="anchor" href="#using-the-different-boilerplates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using the different boilerplates</h5>
+
+<p>Copy the boilerplate directory you want to use to <code>$VVV_ROOT/www</code> and update it's name appropriately. Once that directory has been copied to the <code>www</code> directory, you will have to update all of the files to reference your new site. The files that need to be updated are referenced below for each WordPress site.</p>
+
+<p>One these files are updated, simply run <code>vagrant reload --provision</code> to provision your VM with the latest contents of <code>www</code>. If you simply provision the box, you will need to update your <code>/etc/hosts</code> file manually as the vagrant hooks only run on up/reload.</p>
+
+<h5>
+<a id="single-site-boilerplate" class="anchor" href="#single-site-boilerplate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Single Site Boilerplate</h5>
+
+<pre><code>./single-site
+├── vvv-hosts
+├── vvv-init.sh
+└── vvv-nginx.conf
+</code></pre>
+
+<ul>
+<li>
+<code>vvv-hosts</code> contains the /etc/hosts entries which will allow VVV to add them to your /etc/hosts file.
+
+<ul>
+<li>Update the line that references <code>project.dev</code> to point to the URL you would like for your site to use in the browser. <strong>Remember this URL as you will be referencing it in the other files as well</strong>.</li>
+</ul>
+</li>
+<li>
+<code>vvv-init.sh</code> is the provisioning script for this specific WP installation.
+
+<ul>
+<li>Update the three variables:
+
+<ul>
+<li><code>WP_DB_NAME</code></li>
+<li>
+<code>WP_BASE_URL</code> (<em>Same as the first line of your <code>vvv-hosts</code> file</em>)</li>
+<li><code>WP_BASE_TITLE</code></li>
+</ul>
+</li>
+<li>Make sure to update any other variables that you may need to tweak if you are migrating a project from production to local. Otherwise, you should be safe with the defaults in the boilerplate.</li>
+</ul>
+</li>
+<li>
+<code>vvv-nginx.conf</code> is the server-configuration block for the ngnix server running in the VM.
+
+<ul>
+<li>Update <code>server_name</code> to the same contents of the first line of your <code>vvv-hosts</code> file.</li>
+</ul>
+</li>
+</ul>
+
+<h5>
+<a id="multisite-subdirectories-boilerplate" class="anchor" href="#multisite-subdirectories-boilerplate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multisite Subdirectories Boilerplate</h5>
+
+<pre><code>./subdirectories-multi-site
+├── vvv-hosts
+├── vvv-init.sh
+└── vvv-nginx.conf
+</code></pre>
+
+<ul>
+<li>
+<code>vvv-hosts</code> contains the /etc/hosts entries which will allow VVV to add them to your /etc/hosts file.
+
+<ul>
+<li>Update the line that references <code>multiproject.dev</code> to point to the URL you would like for your site to use in the browser. <strong>Remember this URL as you will be referencing it in the other files as well</strong>.</li>
+<li>Also update the rest of the lines to use a subdomain remembering to include the domain and TLD for your site. <strong>Caveat: Even though this is a subdirectory WordPress Multisite the <code>vvv-init.sh</code> script expects the subdomains to exist in order to create your sites in the WordPress Multisite Network.</strong>
+</li>
+</ul>
+</li>
+<li>
+<code>vvv-init.sh</code> is the provisioning script for this specific WP installation.
+
+<ul>
+<li>Update the three variables:
+
+<ul>
+<li><code>WP_DB_NAME</code></li>
+<li>
+<code>WP_BASE_URL</code> (<em>Same as the first line of your <code>vvv-hosts</code> file</em>)</li>
+<li><code>WP_BASE_TITLE</code></li>
+</ul>
+</li>
+<li>Make sure to update any other variables that you may need to tweak if you are migrating a project from production to local. Otherwise, you should be safe with the defaults in the boilerplate.</li>
+</ul>
+</li>
+<li>
+<code>vvv-nginx.conf</code> is the server-configuration block for the ngnix server running in the VM.
+
+<ul>
+<li>Update <code>server_name</code> to the same contents of the first line of your <code>vvv-hosts</code> file.</li>
+</ul>
+</li>
+</ul>
+
+<h5>
+<a id="multisite-subdomains-boilerplate" class="anchor" href="#multisite-subdomains-boilerplate" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multisite Subdomains Boilerplate</h5>
+
+<pre><code>./subdomains-multi-site
+├── vvv-hosts
+├── vvv-init.sh
+└── vvv-nginx.conf
+</code></pre>
+
+<ul>
+<li>
+<code>vvv-hosts</code> contains the /etc/hosts entries which will allow VVV to add them to your /etc/hosts file.
+
+<ul>
+<li>Update the line that references <code>multiproject.dev</code> to point to the URL you would like for your site to use in the browser. <strong>Remember this URL as you will be referencing it in the other files as well</strong>.</li>
+<li>Also update the rest of the lines to use a subdomain remembering to include the domain and TLD for your site.</li>
+</ul>
+</li>
+<li>
+<code>vvv-init.sh</code> is the provisioning script for this specific WP installation.
+
+<ul>
+<li>Update the three variables:
+
+<ul>
+<li><code>WP_DB_NAME</code></li>
+<li>
+<code>WP_BASE_URL</code> (<em>Same as the first line of your <code>vvv-hosts</code> file</em>)</li>
+<li><code>WP_BASE_TITLE</code></li>
+</ul>
+</li>
+<li>Make sure to update any other variables that you may need to tweak if you are migrating a project from production to local. Otherwise, you should be safe with the defaults in the boilerplate.</li>
+</ul>
+</li>
+<li>
+<code>vvv-nginx.conf</code> is the server-configuration block for the ngnix server running in the VM.
+
+<ul>
+<li>Update <code>server_name</code> to the same contents of the first line of your <code>vvv-hosts</code> file. <strong>Remember to include the leading <code>.</code> character in the <code>server_name</code> to capture subdomains</strong>
+</li>
+</ul>
+</li>
+</ul>
+
+<h6>
+<a id="happy-blogging" class="anchor" href="#happy-blogging" aria-hidden="true"><span class="octicon octicon-link"></span></a>Happy Blogging!</h6>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/rogeruiz">rogeruiz</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-44442010-9");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
