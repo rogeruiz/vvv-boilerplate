@@ -1,4 +1,4 @@
-VVV Boilerplate
+VVV Boilerplates
 ===
 
 Using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) is pretty great. Having a starting point for any new projects you bring under the VVV tool-set is a great way to enhance your productivity.
